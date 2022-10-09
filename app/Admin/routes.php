@@ -13,6 +13,15 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'HomeController@index');
+
     $router->get('records', 'RecordController@index');
+    $router->get('records/create', 'RecordController@create');
+    $router->post('records', 'RecordController@store');
+    $router->post('records', 'RecordController@store');
+
+    $router->get('records/{id}/edit', 'RecordController@edit');
+    $router->put('records/{id}', 'RecordController@update');
+
+    $router->delete('records/{id}', 'RecordController@destroy');
 //    $router->get('products', 'ProductsController@index');
 });
