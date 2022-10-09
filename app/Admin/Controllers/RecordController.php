@@ -20,17 +20,18 @@ class RecordController extends AdminController
         return Grid::make(new Record(), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('user_id');
-            $grid->column('title');
+            $grid->column('title')->editable(true);
             $grid->column('hero');
             $grid->column('record');
-            $grid->column('record_image');
+            $grid->column('record_image')->image();
             $grid->column('remarks');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+                $filter->equal('title');
+
             });
         });
     }
@@ -72,7 +73,7 @@ class RecordController extends AdminController
             $form->text('record');
             $form->text('record_image');
             $form->text('remarks');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });
