@@ -7,6 +7,7 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Admin;
 
 class RecordController extends AdminController
 {
@@ -21,13 +22,16 @@ class RecordController extends AdminController
             $grid->column('id')->sortable();
             $grid->column('user_id');
             $grid->column('title')->editable(true);
-            $grid->column('hero');
+            $grid->column('hero')->label(Admin::color()->primary());
             $grid->column('record');
             $grid->column('record_image')->image();
             $grid->column('remarks');
-            $grid->column('created_at');
+            $grid->column('created_at')->help('坑我的时间');
             $grid->column('updated_at')->sortable();
-
+            // 开启字段选择器功能
+            $grid->showColumnSelector();
+            // 显示快捷编辑按钮
+//            $grid->showQuickEditButton();
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
                 $filter->equal('title');
@@ -71,11 +75,14 @@ class RecordController extends AdminController
             $form->text('title');
             $form->text('hero');
             $form->text('record');
-            $form->text('record_image');
+            $form->image('record_image')->autoUpload()->removable(false);
             $form->text('remarks');
+            $form->divider();
+            $form->datetime('created_at')->format('YYYY-MM-DD HH:mm:ss');
+            $form->datetime('updated_at')->format('YYYY-MM-DD HH:mm:ss');
 
-            $form->display('created_at');
-            $form->display('updated_at');
+
+
         });
     }
 }
